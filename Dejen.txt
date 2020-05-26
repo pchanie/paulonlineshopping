@@ -1,0 +1,7 @@
+In the simplest of terms, API is the acronym for Application Programming Interface, 
+which is a software intermediary that allows two applications to talk to each other. 
+In fact, each time you check the weather on your phone, use the Facebook app or send an instant message, 
+you are using an API. 
+ 
+Every time you use one of these applications, the application on your phone is connecting to the Internet 
+and sending data to a server. The server then retrieves that data, interprets it, performs the necessary actions and sends it back to your phone. The application then interprets that data and presents you with the information you wanted in a human, readable format. 
