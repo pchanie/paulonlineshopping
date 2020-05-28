@@ -1,0 +1,102 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/c29fccf7-396b-4787-b4b1-315d9137218f/ # 
+title: Online Shopping 3
+
+/user:
+  post:
+        body:
+          application/json:
+            examples:
+              input: !include Examples/UserWithNOID.raml
+        responses:
+          201:
+            body:
+              application/json:
+                example:
+                  output: { uid: 1019}
+                         
+/products:
+  get:
+    description: retriveall products
+    responses:
+      200:
+        body:
+          application/json:
+            examples:
+               output: !include Examples/productexample.raml
+            
+/product/{ID}:
+  get: 
+   responses:
+     200:
+       body:
+         application/json:
+           examples:
+              output: !include Examples/productsByID.raml
+/catagories:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            examples: !include Examples/catagoriesExample.raml
+
+  /catagories/{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                 outout: !include Examples/catagoriesbyIDexample.raml
+
+/orders:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            examples: 
+              output: !include Examples/OrderIDexample.raml
+/orders/{ID} :
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+             examples:
+               output: !include Examples/ordersBYIDexample.raml
+
+  post:
+    body:
+      application/json:
+        examples:
+          input: { products:
+                   { productId: 101 ,
+                    quantity: 5},
+                    uid: 1019}
+
+    responses:
+      200:
+        body:
+          application/json:
+            examples:
+               output: !include /Examples/ordersBYIDexample.raml
+              
+
+
+     
+            
+
+            
+            
+
+        
+                
+        
+              
+             
+    
+
+
+          
