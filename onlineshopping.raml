@@ -1,0 +1,119 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/05dc0679-6e92-46c6-b742-11926f9bf325/ # 
+title: onlineshopping
+/user:
+  post:
+    body:
+      application/json:
+        example:
+          {
+  "email": "tes@gmail.com",
+  "username": "test"
+}
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {"uid":100}
+/products:
+  get:
+    description: 
+    responses:
+      200:
+        body:
+          application/json:
+            example:  !include ProjectOne/getproduct.json
+           
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include ProjectOne/getproductid.json
+                
+
+/categories:
+  get:
+    description: To retrieve the catagories
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              [
+                {
+                    "categoryid": 01,
+                    "name": "Electronics"
+                }
+            ]
+ 
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                {
+                  "categoryid": 10,
+                  "name": "labtop"
+                }
+
+/order:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include ProjectOne/getorder.json 
+                            
+               
+
+  /{id}:
+    uriParameters:
+      id:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include ProjectOne/getorderid.json
+       
+  post:
+    body:
+      application/json:
+        example:
+                  {
+          "products": [
+            {
+              "productId": 303,
+              "quantity": 1000
+            }
+          ],
+          "uid": 04
+        }
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              
+              {
+  "orderid": 128,
+  "userid": 1019,
+  "addressid": 201,
+  "discountid": 1,
+  "created": "2020-05-27T23:18:46.479+00:00",
+  "modified": null,
+  "status": "Accepted",
+  "amount": 1000
+}
+          
+
+

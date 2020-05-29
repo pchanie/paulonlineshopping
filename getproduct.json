@@ -1,0 +1,10 @@
+    [
+            {
+              "categoryid": 102,
+              "description": "computer",
+              "name": "HP",
+              "price": 500.00,
+              "productid": "02",
+              "video_url": "https://www.youtube.com/channel"
+            }
+            ]  
