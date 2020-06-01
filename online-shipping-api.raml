@@ -1,0 +1,135 @@
+#%RAML 1.0
+title: online-shipping-wo-type
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              [{
+                "email": "string",
+                "username": "string"
+              }]
+  post:
+    body:
+      application/json:
+        example:
+          {
+            "email": "string",
+            "username": "string"
+          }
+/users/{id}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                {
+                  "email": "string",
+                  "username": "string"
+                }
+/products:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              [
+                {
+                  "productid": 101,
+                  "categoryid": 19,
+                  "name": "KK G-707 Gaming mouse",
+                  "description": "The G-707 Gaming mouse is a razor-sharp mouse with 3000 DPI.",
+                  "video_url": "https://www.youtube.com/watch?v=3AtDnEC4zak",
+                  "price": 7777
+                }
+              ]
+/products/{id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:              
+                {
+                  "productid": 101,
+                  "categoryid": 19,
+                  "name": "KK G-707 Gaming mouse",
+                  "description": "The G-707 Gaming mouse is a razor-sharp mouse with 3000 DPI",
+                  "video_url": "https://www.youtube.com/watch?v=3AtDnEC4zak",
+                  "price": 7777
+                }
+              
+/orders:
+  get:
+    body:
+      application/json:
+        example:
+          [
+            {
+              "orderid": 128,
+              "userid": 1019,
+              "addressid": 201,
+              "discountid": 1,
+              "created": "2020-05-27T23:18:46.000+00:00",
+              "modified": null,
+              "status": "Accepted",
+              "amount": 1000
+            }
+          ]
+  post:
+    body:
+      application/json:
+        example:
+          {
+            "products": [
+              {
+                "productId": 0,
+                "quantity": 0
+              }
+            ],
+            "uid": 0
+          }
+/orders/{id}:
+  get:
+    body:
+      application/json:
+        example:
+          {
+            "orderid": 128,
+            "userid": 1019,
+            "addressid": 201,
+            "discountid": 1,
+            "created": "2020-05-27T23:18:46.000+00:00",
+            "modified": null,
+            "status": "Accepted",
+            "amount": 1000
+          }
+/categories:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              [
+                {
+                  "categoryid": 0,
+                  "name": "string"
+                }
+              ]
+/categories/{id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "categoryid": 10,
+                "name": "labtop"
+              }
