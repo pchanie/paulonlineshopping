@@ -1,4 +1,5 @@
 #%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/ad7df0f2-c6e7-4869-9641-ac98af2f0cd7/ # 
 title: online-shipping-wo-type
 
 /users:
@@ -7,19 +8,28 @@ title: online-shipping-wo-type
       200:
         body:
           application/json:
-            example:
+            example: |
               [{
-                "email": "test@gmail.com",
-                "username": "test"
+                "email": "craft@gmail.com",
+                "username": "craft"
               }]
   post:
     body:
       application/json:
         example:
           {
-            "email": "test@gmail.com",
-            "username": "test"
+            "email": "craft@gmail.com",
+            "username": "craft"
           }
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "uid": 1010
+              }
+              
 /users/{id}:
     get:
       responses:
@@ -28,8 +38,8 @@ title: online-shipping-wo-type
             application/json:
               example:
                 {
-                  "email": "test@gmail.com",
-                  "username": "test"
+                  "email": "string",
+                  "username": "string"
                 }
 /products:
   get:
@@ -118,8 +128,8 @@ title: online-shipping-wo-type
             example:
               [
                 {
-                  "categoryid": 10,
-                  "name": "laptop"
+                  "categoryid": 0,
+                  "name": "string"
                 }
               ]
 /categories/{id}:
@@ -131,5 +141,5 @@ title: online-shipping-wo-type
             example:
               {
                 "categoryid": 10,
-                "name": "laptop"
+                "name": "labtop"
               }
