@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="50768aed-0762-4dd7-9d06-5ba2a0b8df3d" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="products" doc:id="8d9ba665-ae3c-454e-b93c-02b811c28e28" >
+		<http:listener doc:name="Listener" doc:id="5f7dad6f-248a-4e58-98f1-d61ab47de041" config-ref="HTTP_Listener_config" path="/products"/>
+		<ee:transform doc:name="Transform Message" doc:id="3f680029-ae7d-4a09-a0e2-95c994361d6a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    "categoryid": 0,
+    "description": "laptop",
+    "name": "HP laptop",
+    "price": 0,
+    "productid": 0,
+    "video_url": "http://hp.com/latops"
+  },
+    {
+    "categoryid": 1,
+    "description": "laptop",
+    "name": "DELL laptop",
+    "price": 0,
+    "productid": 101,
+    "video_url": "http://dell.com/latops"
+  }
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="44e0f0dc-8c08-4ed9-8cbd-018ab59357b2" message="#[payload]"/>
+	</flow>
+	
+		<flow name="productid" doc:id="44e6bb46-6d56-40db-8d52-bb1ddc5a3750" >
+		<http:listener doc:name="Listener" doc:id="da570cac-b19b-4098-8707-7a6bbaa12180" config-ref="HTTP_Listener_config" path="/products/{id}"/>
+		<set-variable value="#[attributes.uriParams.id]" doc:name="Set Variable" doc:id="131ebd43-3498-46ee-9751-7b9b5c7c6d9f" variableName="id"/>
+		<logger level="INFO" doc:name="Logger" doc:id="cb775ace-6f4c-4179-809a-cd346926ee0d" message="#[vars.id]"/>
+		<ee:transform doc:name="Transform Message" doc:id="63034c7c-0fe6-4578-b170-60d1a18f6dd3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+ {
+    "categoryid": 0,
+"description": "laptop",
+"name": "HP laptop",
+"price": 0,
+"productid": 0,
+"video_url": "http://hp.com/latops"
+  }
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="f8f5f3c6-bd20-4ce8-86a3-99f3546f092e" message="#[payload]"/>
+	</flow>
+</mule>
