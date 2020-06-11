@@ -18,19 +18,11 @@ output application/json
 [
   {
     "categoryid": 0,
-    "description": "laptop",
-    "name": "HP laptop",
+    "description": "string",
+    "name": "string",
     "price": 0,
     "productid": 0,
-    "video_url": "http://hp.com/latops"
-  },
-    {
-    "categoryid": 1,
-    "description": "laptop",
-    "name": "DELL laptop",
-    "price": 0,
-    "productid": 101,
-    "video_url": "http://dell.com/latops"
+    "video_url": "string"
   }
 ]]]></ee:set-payload>
 			</ee:message>
@@ -59,5 +51,249 @@ output application/json
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="f8f5f3c6-bd20-4ce8-86a3-99f3546f092e" message="#[payload]"/>
+	</flow>
+	<flow name="users" doc:id="5c71a877-622d-429c-ad92-76a9117e5cef" >
+		<http:listener doc:name="users listner" doc:id="1ac00db0-98ef-4efa-b379-40b56431c4ce" config-ref="HTTP_Listener_config" path="/users" />
+		<ee:transform doc:name="users transformer" doc:id="e02081ea-9efa-4e35-9127-15eb175f6c12" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    "date_joined": {
+      "date": 0,
+      "day": 0,
+      "hours": 0,
+      "minutes": 0,
+      "month": 0,
+      "nanos": 0,
+      "seconds": 0,
+      "time": 0,
+      "timezoneOffset": 0,
+      "year": 0
+    },
+    "deleted": true,
+    "email": "string",
+    "modified": {
+      "date": 0,
+      "day": 0,
+      "hours": 0,
+      "minutes": 0,
+      "month": 0,
+      "nanos": 0,
+      "seconds": 0,
+      "time": 0,
+      "timezoneOffset": 0,
+      "year": 0
+    },
+    "type": 0,
+    "userid": 0,
+    "username": "string"
+  }
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="users logger" doc:id="fc12ef69-5e89-46ae-b7bc-20fef77c887e" message="#[payload]" />
+	</flow>
+	<flow name="userid" doc:id="a28072b0-b5f9-4021-8ce3-f5a5d1d0ceb8" initialState="stopped">
+		<http:listener doc:name="userid Listener" doc:id="4fabc158-6f3c-4b04-9286-badcf65cd889" config-ref="HTTP_Listener_config" path="/products/{id}" />
+		<set-variable value="#[attributes.uriParams.id]" doc:name="userid Set Variable" doc:id="06414e09-649c-45ba-8842-6a2175b3d762" variableName="id" />
+		<logger level="INFO" doc:name="useridLogger" doc:id="cccd0961-0e5e-4cea-8c41-f94d6c975131" message="#[vars.id]" />
+		<ee:transform doc:name="userid Transform Message" doc:id="04512373-4f19-475a-b6e6-ba7987e81520" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+  "date_joined": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "deleted": true,
+  "email": "string",
+  "modified": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "type": 0,
+  "userid": 0,
+  "username": "string"
+}
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="userid_Logger" doc:id="6e6db1e0-bf2b-41a1-bd8d-eea7f32f7b60" message="#[payload]" />
+	</flow>
+	<flow name="orders" doc:id="f82c4b80-930b-495f-9a94-408374a8ddaf" >
+		<http:listener doc:name="orders  listner" doc:id="3d5fef42-4e42-4ca4-ba3b-92b5e5cf7471" config-ref="HTTP_Listener_config" path="/orders" />
+		<ee:transform doc:name="orders transfromer" doc:id="79d48395-b8d5-4e6b-b393-0d8334516986" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    "addressid": 0,
+    "amount": 0,
+    "created": {
+      "date": 0,
+      "day": 0,
+      "hours": 0,
+      "minutes": 0,
+      "month": 0,
+      "nanos": 0,
+      "seconds": 0,
+      "time": 0,
+      "timezoneOffset": 0,
+      "year": 0
+    },
+    "discountid": 0,
+    "modified": {
+      "date": 0,
+      "day": 0,
+      "hours": 0,
+      "minutes": 0,
+      "month": 0,
+      "nanos": 0,
+      "seconds": 0,
+      "time": 0,
+      "timezoneOffset": 0,
+      "year": 0
+    },
+    "orderid": 0,
+    "status": "string",
+    "userid": 0
+  }
+]
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="orders logger" doc:id="bd955275-92ed-4d6f-a9d4-313a6335b473" message="#[payload]" />
+	</flow>
+	<flow name="orderid" doc:id="83b2af1c-203a-4f44-b178-b2e0ad4277f1" initialState="stopped" >
+		<http:listener doc:name="orderid Listener" doc:id="46e25def-2222-4192-80ff-7462cf796975" config-ref="HTTP_Listener_config" path="/order/{id}" />
+		<set-variable value="#[attributes.uriParams.id]" doc:name="orderid Set Variable" doc:id="139c2a36-b0ba-489a-ad0a-7516f9888616" variableName="id" />
+		<logger level="INFO" doc:name="orderid Logger" doc:id="ec5b2458-12b5-4d7f-aeb6-6d430a286ff4" message="#[vars.id]" />
+		<ee:transform doc:name="orderid Transform Message" doc:id="39c62b30-94e2-40f1-9853-ade150a8ea13" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+  "addressid": 0,
+  "amount": 0,
+  "created": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "discountid": 0,
+  "modified": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "orderid": 0,
+  "status": "string",
+  "userid": 0
+}
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="orderid Logger" doc:id="15452781-d155-42cc-a3c9-bc2725a6e7e8" message="#[payload]" />
+	</flow>
+	<flow name="categories" doc:id="2356c285-24fa-4213-a711-0e187d04797b" >
+		<http:listener doc:name="categories listner" doc:id="5999f972-54bf-4029-a9ee-4b7b17d48c1a" config-ref="HTTP_Listener_config" path="/categories" />
+		<ee:transform doc:name="categories transfromer" doc:id="cee82090-9137-4d4e-abaf-e349eec1303b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    "categoryid": 0,
+    "name": "string"
+  }
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="categories logger" doc:id="24176841-33e5-4a39-a548-d465d6dcf9e7" message="#[payload]" />
+	</flow>
+	<flow name="categoriesid" doc:id="39c738c2-0275-461f-bfc5-5ff1c3736874" initialState="stopped" >
+		<http:listener doc:name="categoriesid Listener" doc:id="6c012e2b-7f2d-4632-b86b-69638d213cf9" config-ref="HTTP_Listener_config" path="/categories/{id}" />
+		<set-variable value="#[attributes.uriParams.id]" doc:name="categories id Set Variable" doc:id="d6b91a47-195a-48f3-8bbf-54e25c3bdf11" variableName="id" />
+		<logger level="INFO" doc:name="categories Logger" doc:id="1c8dff2e-3385-4ac7-b05c-c9638841176d" message="#[vars.id]" />
+		<ee:transform doc:name="categories Transform Message" doc:id="97ec6228-fb4a-41f9-9d21-751094bd820a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+  "addressid": 0,
+  "amount": 0,
+  "created": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "discountid": 0,
+  "modified": {
+    "date": 0,
+    "day": 0,
+    "hours": 0,
+    "minutes": 0,
+    "month": 0,
+    "nanos": 0,
+    "seconds": 0,
+    "time": 0,
+    "timezoneOffset": 0,
+    "year": 0
+  },
+  "orderid": 0,
+  "status": "string",
+  "userid": 0
+}
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="categories Logger" doc:id="58d823de-8bc0-4a74-94bb-aab9fb3b5e86" message="#[payload]" />
 	</flow>
 </mule>
